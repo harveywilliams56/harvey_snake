@@ -57,6 +57,7 @@ class GameLoop:
 				while True: pass
 			if self.snake.has_hit(self.egg):
 				self.egg.teleport()
+				self.snake.growth = True	
 				score = score + 100
 			
 			# Redraw The Screen

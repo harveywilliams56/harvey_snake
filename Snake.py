@@ -8,7 +8,8 @@ class Snake:
 		self.draw_area = draw_area
 
 		self.current_direction = 'r'
-		self.checker = None
+		self.checker = 'r'
+		self.growth = False
 		self.points = []
 		for i in range(20):
 			self.points += [(x+i,y)]
@@ -81,8 +82,23 @@ class Snake:
 			new_head = (old_head[0], old_head[1]+1)
 		elif dir == 'd':
 			new_head = (old_head[0], old_head[1]-1)
+
+		# new_head = (x, y)
+		if new_head[1] >= self.draw_area.height:
+			new_head = (new_head[0], 0)
+		if new_head[1] <= -1:
+			new_head =(new_head[0],
+				 self.draw_area.height - 1)
+		if new_head[0] >= self.draw_area.width:
+			new_head = (0, new_head [1])
+		if new_head[0] <= -1:
+			new_head = (self.draw_area.width -1, new_head[1])
+			
 		
-		del self.points[0]
+		if self.growth == True:
+			self.growth = False
+		else:
+			del self.points[0]
 
 		self.points += [new_head]
 
