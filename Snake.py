@@ -7,12 +7,27 @@ class Snake:
 	def __init__(self, draw_area, x = 0, y = 0, start_size = 6):
 		self.draw_area = draw_area
 
-		self.current_direction = 'r'
-		self.checker = 'r'
+		self.reset(x, y, start_size, 'u')
+
+	def reset(self, x, y, l, d):
+
+		if d not in ['u', 'd', 'l', 'r']:
+			raise Exception("Invalid direction: %s" % (new_dir))
+
+		self.current_direction = d
+		self.checker = d
 		self.growth = False
+
 		self.points = []
-		for i in range(start_size):
-			self.points += [(x+i,y)]
+		for i in range(l-1, -1, -1):
+			if d == 'u':
+				self.points += [(x,y-i)]
+			if d == 'd':
+				self.points += [(x,y+i)]
+			if d == 'l':
+				self.points += [(x+i,y)]
+			if d == 'r':
+				self.points += [(x-i,y)]
 
 	def draw(self):
 		n = len(self.points)

@@ -12,8 +12,11 @@ class GameLoop:
 		self.draw_area = DrawArea(screen)
 
 		self.snakes = []
-		self.snakes.append(Snake(self.draw_area,2,2))
-		self.snakes.append(Snake(self.draw_area,22,22))
+		self.snakes.append(Snake(self.draw_area))
+		self.snakes.append(Snake(self.draw_area))
+
+		for i in range(len(self.snakes)):
+			self.reset_snake(i)
 
 		self.decoders = []
 		self.decoders.append(self.key_decode1)
@@ -22,6 +25,22 @@ class GameLoop:
 		self.pause = 1000
 
 		self.egg = Egg(self.draw_area, 9, 9)
+
+	def reset_snake(self, index):
+	
+		snake = self.snakes[index]
+
+		y = self.draw_area.height / 2	
+		l = 4
+
+		if index == 0:
+			x = self.draw_area.width / 4
+			d = 'u'
+		if index == 1:
+			x = (self.draw_area.width * 3) / 4
+			d = 'd'	
+	
+		snake.reset(x, y, l, d)
 	
 	def get_newest_key(self):
 		nwstk = curses.ERR
@@ -85,8 +104,7 @@ class GameLoop:
 				for s1 in self.snakes:
 					if s.has_hit(s1):
 						index = self.snakes.index(s)
-						del self.snakes[index]
-						del self.decoders[index]			
+						self.reset_snake(index)
 		
 			# Redraw The Screen
 			self.draw_area.clear()
