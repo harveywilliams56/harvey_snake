@@ -11,7 +11,13 @@ class GameLoop:
 		self.screen = screen
 		self.draw_area = DrawArea(screen)
 
-		self.snake = Snake(self.draw_area)
+		self.snakes = []
+		self.snakes.append(Snake(self.draw_area,2,2))
+		self.snakes.append(Snake(self.draw_area,22,22))
+
+		self.decoders = []
+		self.decoders.append(self.key_decode1)
+		self.decoders.append(self.key_decode)
 
 		self.pause = 1000
 
@@ -28,16 +34,25 @@ class GameLoop:
 				nwstk = key
 		return nwstk
 	def key_decode(self,key):
-		
+		dir = None	
 		if key == curses.KEY_UP: dir = 'u'
 		elif key == curses.KEY_DOWN: dir = 'd'
 		elif key == curses.KEY_LEFT: dir = 'l'
 		elif key == curses.KEY_RIGHT: dir = 'r'
 		return dir
-	
+
+	def key_decode1(self, key):
+		dir = None
+		if key == ord('w'): dir = 'u'
+		elif key == ord('s'): dir = 'd'
+		elif key == ord('a'): dir = 'l'
+		elif key == ord('d'): dir = 'r'
+		return dir
+		
 	def run(self):
 
 		score = 0
+		score1 = 0
 
 		# Make getch() Non-Blocking
 		self.screen.nodelay(1)
@@ -46,27 +61,48 @@ class GameLoop:
 			# Check for user input
 			key = self.get_newest_key()
 			if key != curses.ERR:
-				dir = self.key_decode(key)
-				self.snake.change_direction(dir)
+				for i in range(len(self.snakes)):
+					func = self.decoders[i]
+					dir = func(key)
+					if dir != None:
+						self.snakes[i].change_direction(dir)
 	
 			# Update Object Positions
-			self.snake.move()
-			
+			for s in self.snakes:
+				s.move()
+
 			#Collision detection here	
-			if self.snake.has_hit(self.snake):
-				while True: pass
-			if self.snake.has_hit(self.egg):
-				self.egg.teleport()
-				self.snake.growth = True	
-				score = score + 100
-			
+			for s in self.snakes:
+				if s.has_hit(self.egg):
+					self.egg.teleport()
+					s.growth = True	
+					index = self.snakes.index(s)
+					if index == 0:	
+						score = score + 1
+					if index == 1:
+						score1 = score1 + 1
+
+				for s1 in self.snakes:
+					if s.has_hit(s1):
+						index = self.snakes.index(s)
+						del self.snakes[index]
+						del self.decoders[index]			
+		
 			# Redraw The Screen
 			self.draw_area.clear()
-			self.snake.draw()
+			
+			for s in self.snakes:
+				s.draw()
 			self.egg.draw()
 			score_str = "Score: %i" % (score)
 			self.draw_area.draw_str(0, self.draw_area.height-1, score_str)
+			
+			score_str1 = "Score: %i" % (score1)
+			self.draw_area.draw_str(self.draw_area.width-len(score_str1),
+				self.draw_area.height-1, score_str1)
+
 			self.draw_area.paint_to_screen()
+			
 			
 			# Wait
 			#time.sleep(self.pause * 0.0001)

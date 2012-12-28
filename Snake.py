@@ -4,14 +4,14 @@ import curses.wrapper
 from DrawArea import DrawArea
 
 class Snake:
-	def __init__(self, draw_area, x = 5, y = 5):
+	def __init__(self, draw_area, x = 0, y = 0, start_size = 6):
 		self.draw_area = draw_area
 
 		self.current_direction = 'r'
 		self.checker = 'r'
 		self.growth = False
 		self.points = []
-		for i in range(20):
+		for i in range(start_size):
 			self.points += [(x+i,y)]
 
 	def draw(self):
