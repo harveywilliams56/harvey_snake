@@ -1,15 +1,13 @@
-
-import curses
 import curses.wrapper
 from DrawArea import DrawArea
 
 class Snake:
-	def __init__(self, draw_area, x = 0, y = 0, start_size = 6):
+	def __init__(self, draw_area, x = 0, y = 0, d = 1, l = 2):
 		self.draw_area = draw_area
 
-		self.reset(x, y, start_size, 'u')
+		self.reset(x, y, d, l)
 
-	def reset(self, x, y, l, d):
+	def reset(self, x, y, d, l):
 
 		if d not in ['u', 'd', 'l', 'r']:
 			raise Exception("Invalid direction: %s" % (new_dir))
@@ -79,8 +77,6 @@ class Snake:
 					self.current_direction = new_dir
 				else:
 					new_dir = self.checker
-		else:
-			raise Exception("Invalid direction: %s" % (new_dir))
 		self.checker = new_dir
 
 	def move(self):
@@ -117,28 +113,3 @@ class Snake:
 
 		self.points += [new_head]
 
-def test_main(screen):
-	
-	draw_area = DrawArea(screen)
-
-	snake = Snake(draw_area)
-
-	dir = 'r'
-	
-	while True:
-		draw_area.clear()
-		snake.draw()
-		draw_area.draw()
-		
-		key = screen.getch()
-		
-		if key == curses.KEY_UP: dir = 'u'
-		elif key == curses.KEY_DOWN: dir = 'd'
-		elif key == curses.KEY_LEFT: dir = 'l'
-		elif key == curses.KEY_RIGHT: dir = 'r'
-	
-		snake.change_direction(dir)	
-		snake.move()
-
-if __name__ == "__main__":
-	curses.wrapper(test_main)
