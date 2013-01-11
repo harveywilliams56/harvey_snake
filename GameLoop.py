@@ -1,4 +1,3 @@
-
 import curses.wrapper
 import time
 from DrawArea import *
@@ -20,10 +19,10 @@ class GameLoop:
 				ord('a') : 'l',
 				ord('s') : 'd',
 				ord('d') : 'r'}
-		self.map1 = {	ord('u') : 'u',
-				ord('h') : 'l',
-				ord('j') : 'd',
-				ord('k') : 'r'}
+		self.map1 = {	curses.KEY_UP : 'u',
+				curses.KEY_LEFT : 'l',
+				curses.KEY_DOWN : 'd',
+				curses.KEY_RIGHT : 'r'}
 
 		self.player0 = Player(self.x, self.y, self.d, self.l, self.map0,self.draw_area)
 		self.player1 = Player(9, 9, 'd', 5, self.map1, self.draw_area)
