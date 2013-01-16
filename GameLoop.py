@@ -43,7 +43,7 @@ class GameLoop:
 			key = self.screen.getch()
 			if key == curses.ERR:
 				switch = False
-			else:
+			elif key in ['a', 's', 'w', 'd']:
 				nwstk = key
 		return nwstk
 	def get_newest_key1(self):
