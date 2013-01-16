@@ -46,7 +46,17 @@ class GameLoop:
 			else:
 				nwstk = key
 		return nwstk
-		
+	def get_newest_key1(self):
+		nwstk1 = curses.ERR
+		switch = True
+		while switch:
+			key1 = self.screen.getch()
+			if key1 == curses.ERR:
+				switch = False
+			elif key1 in [curses.KEY_UP, curses.KEY_DOWN, curses.KEY_LEFT, curses.KEY_RIGHT]:
+				nwstk1 = key
+		return nwstk1
+	
 	def run(self):
 
 		# Make getch() Non-Blocking
