@@ -1,3 +1,4 @@
+
 import curses.wrapper
 import time
 from DrawArea import *
@@ -10,23 +11,22 @@ class GameLoop:
 	def __init__(self, screen):
 		self.screen = screen
 		self.draw_area = DrawArea(screen)
-                  self.x1 = (self.draw_area.width * 3) / 4
-                  self.d1 = 'd'
 		self.x = self.draw_area.width / 4
 		self.y = self.draw_area.height / 2
 		self.d = 'u'
 		self.l = 5
+		self.players = []
 		self.map0 = {	ord('w') : 'u',
 				ord('a') : 'l',
 				ord('s') : 'd',
 				ord('d') : 'r'}
-		self.map1 = {	curses.KEY_UP : 'u',
-				curses.KEY_LEFT : 'l',
-				curses.KEY_DOWN : 'd',
-				curses.KEY_RIGHT : 'r'}
+		self.map1 = {	ord('u') : 'u',
+				ord('h') : 'l',
+				ord('j') : 'd',
+				ord('k') : 'r'}
 
 		self.player0 = Player(self.x, self.y, self.d, self.l, self.map0,self.draw_area)
-		self.player1 = Player(self.x1, self.y, self.d1, self.l, self.map1, self.draw_area)
+		self.player1 = Player(9, 9, 'd', 5, self.map1, self.draw_area)
 		self.pause = 1000
 		self.player0.add_to_obstacles(self.player0.snake)
 		self.player0.add_to_obstacles(self.player1.snake)
@@ -43,20 +43,10 @@ class GameLoop:
 			key = self.screen.getch()
 			if key == curses.ERR:
 				switch = False
-			elif key in ['a', 's', 'w', 'd']:
+			else:
 				nwstk = key
 		return nwstk
-	def get_newest_key1(self):
-		nwstk1 = curses.ERR
-		switch = True
-		while switch:
-			key1 = self.screen.getch()
-			if key1 == curses.ERR:
-				switch = False
-			elif key1 in [curses.KEY_UP, curses.KEY_DOWN, curses.KEY_LEFT, curses.KEY_RIGHT]:
-				nwstk1 = key
-		return nwstk1
-	
+		
 	def run(self):
 
 		# Make getch() Non-Blocking
