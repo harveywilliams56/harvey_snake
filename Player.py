@@ -20,10 +20,13 @@ class Player:
 		self.score = 0
 		self.map = map
 
-	
-	def key_decode(self,key):
-		if key in self.map:
-			return self.map[key]
+	#takes a list of keys
+	#return newest revelant key as a direction
+	def key_decode(self,keys):
+		for key in reversed(keys):
+			if key in self.map:
+				return self.map[key]
+		return ""
 	
 	def add_to_food(self,munchies):
 		self.food_list.append(munchies)
