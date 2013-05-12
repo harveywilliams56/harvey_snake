@@ -7,7 +7,7 @@ from GameLoop import *
 
 
 class Player: 
-	def __init__(self,x,y,d,l,map,draw_area):
+	def __init__(self,x,y,d,l,map,draw_area,query):
 		self.draw_area = draw_area
 		self.food_list = [] 
 		self.obst_list = []
@@ -19,7 +19,7 @@ class Player:
 		self.l = l
 		self.score = 0
 		self.map = map
-
+		self.query = query
 	#takes a list of keys
 	#return newest revelant key as a direction
 	def key_decode(self,keys):
@@ -48,4 +48,8 @@ class Player:
 		self.snake.draw()
 		
 		score_str = "Score: %i" % (self.score)
-		self.draw_area.draw_str(0, self.draw_area.height-1, score_str)
+		if self.query == True:
+			self.draw_area.draw_str(0, self.draw_area.height -1, score_str)
+		if self.query == False:
+			self.draw_area.draw_str(self.draw_area.width -len(score_str), self.draw_area.height -1, score_str)
+

@@ -25,8 +25,8 @@ class GameLoop:
 				curses.KEY_DOWN : 'd',
 				curses.KEY_RIGHT : 'r'}
 
-		self.player0 = Player(self.x, self.y, self.d, self.l, self.map0,self.draw_area)
-		self.player1 = Player(9, 9, 'd', 5, self.map1, self.draw_area)
+		self.player0 = Player(self.x, self.y, self.d, self.l, self.map0,self.draw_area,True)
+		self.player1 = Player(9, 9, 'd', 5, self.map1, self.draw_area,False)
 		self.pause = 1000
 		self.player0.add_to_obstacles(self.player0.snake)
 		self.player0.add_to_obstacles(self.player1.snake)
