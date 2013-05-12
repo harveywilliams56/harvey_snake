@@ -4,8 +4,7 @@ import curses.wrapper
 from DrawArea import *
 from Snake import *
 from GameLoop import *
-
-
+from random import randrange
 class Player: 
 	def __init__(self,x,y,d,l,map,draw_area,query):
 		self.draw_area = draw_area
@@ -34,7 +33,12 @@ class Player:
 		self.obst_list.append(obst)
 	
 	def reset_snake(self):
-		self.snake.reset(self.x, self.y, self.d, self.l)	
+		file=open('./testfile', 'w+')
+		xposition = randrange(self.l ,self.draw_area.width -self.l)
+		yposition = randrange(self.l ,self.draw_area.height -self.l)
+		print >>file, [xposition, yposition]
+		 
+		self.snake.reset(xposition,yposition , self.d, self.l)	
 	def collision_detection(self):
 		for snack in self.food_list:
 			if self.snake.has_hit(snack):
