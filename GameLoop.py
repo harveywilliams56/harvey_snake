@@ -20,10 +20,10 @@ class GameLoop:
 				ord('a') : 'l',
 				ord('s') : 'd',
 				ord('d') : 'r'}
-		self.map1 = {	ord('u') : 'u',
-				ord('h') : 'l',
-				ord('j') : 'd',
-				ord('k') : 'r'}
+		self.map1 = {	curses.KEY_UP : 'u',
+				curses.KEY_LEFT : 'l',
+				curses.KEY_DOWN : 'd',
+				curses.KEY_RIGHT : 'r'}
 
 		self.player0 = Player(self.x, self.y, self.d, self.l, self.map0,self.draw_area)
 		self.player1 = Player(9, 9, 'd', 5, self.map1, self.draw_area)
@@ -36,17 +36,18 @@ class GameLoop:
 		self.player0.add_to_food(self.egg)
 		self.player1.add_to_food(self.egg)
 
-	def get_newest_key(self):
-		nwstk = curses.ERR
+	#Get list of keys since last gameloop
+	def key_list(self):
+		key_list = []
 		switch = True
 		while switch:
 			key = self.screen.getch()
 			if key == curses.ERR:
 				switch = False
 			else:
-				nwstk = key
-		return nwstk
-		
+				key_list += [key]
+		return key_list
+
 	def run(self):
 
 		# Make getch() Non-Blocking
@@ -54,12 +55,11 @@ class GameLoop:
 		while True:
 
 			# Check for user input
-			key = self.get_newest_key()
-			if key != curses.ERR:
-				dir = self.player0.key_decode(key)
-				self.player0.snake.change_direction(dir)
-				dir = self.player1.key_decode(key)
-				self.player1.snake.change_direction(dir)
+			keys = self.key_list()
+			dir = self.player0.key_decode(keys)
+			self.player0.snake.change_direction(dir)
+			dir = self.player1.key_decode(keys)
+			self.player1.snake.change_direction(dir)
 
 
 			# update object positions

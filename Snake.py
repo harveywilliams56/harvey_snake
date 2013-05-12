@@ -77,6 +77,8 @@ class Snake:
 					self.current_direction = new_dir
 				else:
 					new_dir = self.checker
+		else:
+			return
 		self.checker = new_dir
 
 	def move(self):
