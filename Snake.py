@@ -9,7 +9,7 @@ class Snake:
 
 	def reset(self, x, y, d, l):
 
-		if d not in ['u', 'd', 'l', 'r']:
+		if d not in [3, 1, 4, 2]:
 			raise Exception("Invalid direction: %s" % (new_dir))
 
 		self.current_direction = d
@@ -18,13 +18,13 @@ class Snake:
 
 		self.points = []
 		for i in range(l-1, -1, -1):
-			if d == 'u':
+			if d == 3:
 				self.points += [(x,y-i)]
-			if d == 'd':
+			if d == 1:
 				self.points += [(x,y+i)]
-			if d == 'l':
+			if d == 4:
 				self.points += [(x+i,y)]
-			if d == 'r':
+			if d == 2:
 				self.points += [(x-i,y)]
 
 	def draw(self):
@@ -56,24 +56,24 @@ class Snake:
 		return r
 
 	def change_direction(self, new_dir):
-		if new_dir in ['u', 'd', 'l', 'r']:
-			if self.checker == 'u':
-				if new_dir != 'd':
+		if new_dir in [3, 1, 4, 2]:
+			if self.checker == 3:
+				if new_dir != 1:
 					self.current_direction = new_dir
 				else:
 					new_dir = self.checker
-			if self.checker == 'd':
-				if new_dir != 'u':
+			if self.checker == 1:
+				if new_dir != 3:
 					self.current_direction = new_dir
 				else:
 					new_dir = self.checker
-			if self.checker == 'r':
-				if new_dir != 'l':
+			if self.checker == 2:
+				if new_dir != 4:
 					self.current_direction = new_dir
 				else:
 					new_dir = self.checker
-			if self.checker == 'l':
-				if new_dir != 'r':
+			if self.checker == 4:
+				if new_dir != 2:
 					self.current_direction = new_dir
 				else:
 					new_dir = self.checker
@@ -87,13 +87,13 @@ class Snake:
 
 		dir = self.current_direction
 
-		if dir == 'r':
+		if dir == 2:
 			new_head = (old_head[0]+1, old_head[1])
-		elif dir == 'l':
+		elif dir == 4:
 			new_head = (old_head[0]-1, old_head[1])
-		elif dir == 'u':
+		elif dir == 3:
 			new_head = (old_head[0], old_head[1]+1)
-		elif dir == 'd':
+		elif dir == 1:
 			new_head = (old_head[0], old_head[1]-1)
 
 		# new_head = (x, y)

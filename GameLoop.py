@@ -13,20 +13,20 @@ class GameLoop:
 		self.draw_area = DrawArea(screen)
 		self.x = self.draw_area.width / 4
 		self.y = self.draw_area.height / 2
-		self.d = 'u'
+		self.d = 3
 		self.l = 5
 		self.players = []
-		self.map0 = {	ord('w') : 'u',
-				ord('a') : 'l',
-				ord('s') : 'd',
-				ord('d') : 'r'}
-		self.map1 = {	curses.KEY_UP : 'u',
-				curses.KEY_LEFT : 'l',
-				curses.KEY_DOWN : 'd',
-				curses.KEY_RIGHT : 'r'}
+		self.map0 = {	ord('w') : 3,
+				ord('a') : 4,
+				ord('s') : 1,
+				ord('d') : 2}
+		self.map1 = {	curses.KEY_UP : 3,
+				curses.KEY_LEFT : 4,
+				curses.KEY_DOWN : 1,
+				curses.KEY_RIGHT : 2}
 
 		self.player0 = Player(self.x, self.y, self.d, self.l, self.map0,self.draw_area,True)
-		self.player1 = Player(9, 9, 'd', 5, self.map1, self.draw_area,False)
+		self.player1 = Player(9, 9, 1, 5, self.map1, self.draw_area,False)
 		self.pause = 1000
 		self.player0.add_to_obstacles(self.player0.snake)
 		self.player0.add_to_obstacles(self.player1.snake)

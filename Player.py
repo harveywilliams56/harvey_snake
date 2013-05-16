@@ -33,12 +33,10 @@ class Player:
 		self.obst_list.append(obst)
 	
 	def reset_snake(self):
-		file=open('./testfile', 'w+')
 		xposition = randrange(self.l ,self.draw_area.width -self.l)
 		yposition = randrange(self.l ,self.draw_area.height -self.l)
-		print >>file, [xposition, yposition]
 		 
-		self.snake.reset(xposition,yposition , self.d, self.l)	
+		self.snake.reset(xposition,yposition , randrange(1,4), self.l)	
 	def collision_detection(self):
 		for snack in self.food_list:
 			if self.snake.has_hit(snack):
