@@ -36,7 +36,7 @@ class Player:
 		xposition = randrange(self.l ,self.draw_area.width -self.l)
 		yposition = randrange(self.l ,self.draw_area.height -self.l)
 		 
-		self.snake.reset(xposition,yposition , randrange(1,4), self.l)	
+		self.snake.reset(xposition,yposition , randrange(1,5), self.l)	
 	def collision_detection(self):
 		for snack in self.food_list:
 			if self.snake.has_hit(snack):
