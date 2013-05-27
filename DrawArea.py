@@ -7,6 +7,7 @@ import curses.wrapper
 class DrawArea:
 	def __init__(self, full_screen):
 		screen_height, screen_width = full_screen.getmaxyx()
+		self.blank_char = '\0'
 
 		self.width = 70
 		self.height = 25
@@ -27,7 +28,7 @@ class DrawArea:
 		self.grid[x][flipped_y] = c
 
 	def clear(self):
-		temp = [' '] * self.height
+		temp = [self.blank_char] * self.height
 		self.grid = []
 		for x in range(self.width):
 			self.grid += [temp[:]]
@@ -46,7 +47,7 @@ class DrawArea:
 		for x in range(self.width):
 			for y in range(self.height):
 				c = self.grid[x][y]
-				if c != ' ':
+				if c != self.blank_char:
 					if x == (self.width-1) and y == (self.height-1):
 						self.screen.addch(y, x - 1, ord(c))
 						ic = self.grid[x-1][y]
