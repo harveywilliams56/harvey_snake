@@ -49,9 +49,10 @@ class Player:
 	def draw(self):
 		self.snake.draw()
 		
-		score_str = "Score: %i" % (self.score)
 		if self.query == True:
-			self.draw_area.draw_str(0, self.draw_area.height -1, score_str)
+			score_str = " Left Player = %i " % (self.score)
+			self.draw_area.draw_str(1, self.draw_area.height -1, score_str)
 		if self.query == False:
-			self.draw_area.draw_str(self.draw_area.width -len(score_str), self.draw_area.height -1, score_str)
+			score_str = " Right Player = %i " % (self.score)
+			self.draw_area.draw_str(self.draw_area.width -len(score_str) -1, self.draw_area.height -1, score_str)
 
