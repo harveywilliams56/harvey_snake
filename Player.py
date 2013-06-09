@@ -1,12 +1,11 @@
 
-
 import curses.wrapper
 from DrawArea import *
 from Snake import *
 from GameLoop import *
 from random import randrange
 class Player: 
-	def __init__(self,x,y,d,l,map,draw_area,query):
+	def __init__(self ,x,y,d,l,map,draw_area,query):
 		self.draw_area = draw_area
 		self.food_list = [] 
 		self.obst_list = []
@@ -19,6 +18,9 @@ class Player:
 		self.score = 0
 		self.map = map
 		self.query = query
+		self.transistor = 2
+		self.counter = 0
+		self.trigger = 1
 	#takes a list of keys
 	#return newest revelant key as a direction
 	def key_decode(self,keys):
@@ -36,7 +38,10 @@ class Player:
 		xposition = randrange(self.l ,self.draw_area.width -self.l)
 		yposition = randrange(self.l ,self.draw_area.height -self.l)
 		 
-		self.snake.reset(xposition,yposition , randrange(1,5), self.l)	
+		self.snake.reset(xposition,yposition , randrange(1,5), self.l)
+		self.transistor = 0
+		self.score -= 1	
+
 	def collision_detection(self):
 		for snack in self.food_list:
 			if self.snake.has_hit(snack):
@@ -56,3 +61,24 @@ class Player:
 			score_str = " Right Player = %i " % (self.score)
 			self.draw_area.draw_str(self.draw_area.width -len(score_str) -1, self.draw_area.height -1, score_str)
 
+
+	def player_functions(self):
+		self.trigger = 1
+		if self.transistor == 2:
+			self.snake.move()
+			self.collision_detection()
+			self.snake.draw()
+			self.draw()
+		if self.transistor != 2:
+			self.counter = self.counter + 1
+			if self.transistor == 0:
+				self.trigger = 0
+				self.transistor = 1
+			if self.trigger == 1:
+				if self.transistor == 1:
+					self.snake.draw()
+					self.draw()
+					self.transistor = 0
+			if self.counter == 10:
+				self.counter = 0
+				self.transistor = 2

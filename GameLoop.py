@@ -24,8 +24,7 @@ class GameLoop:
 				curses.KEY_LEFT : 4,
 				curses.KEY_DOWN : 1,
 				curses.KEY_RIGHT : 2}
-
-		self.player0 = Player(self.x, self.y, self.d, self.l, self.map0,self.draw_area,True)
+		self.player0 = Player(self.x,self.y,self.d, self.l, self.map0,self.draw_area,True)
 		self.player1 = Player(9, 9, 1, 5, self.map1, self.draw_area,False)
 		self.pause = 1000
 		self.player0.add_to_obstacles(self.player0.snake)
@@ -35,7 +34,6 @@ class GameLoop:
 		self.egg = Egg(self.draw_area, 9, 9)
 		self.player0.add_to_food(self.egg)
 		self.player1.add_to_food(self.egg)
-
 	#Get list of keys since last gameloop
 	def key_list(self):
 		key_list = []
@@ -61,19 +59,11 @@ class GameLoop:
 			dir = self.player1.key_decode(keys)
 			self.player1.snake.change_direction(dir)
 
-
-			# update object positions
-			
-			self.player0.snake.move()
-			self.player1.snake.move()
-
-			#collision detection here	
-			self.player0.collision_detection()
-			self.player1.collision_detection()
 			# redraw the screen
 			self.draw_area.clear()
-			self.player0.draw()
-			self.player1.draw()
+
+			self.player0.player_functions()
+			self.player1.player_functions()
 			self.egg.draw()
 			
 			self.draw_area.paint_to_screen()
