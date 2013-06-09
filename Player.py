@@ -52,7 +52,8 @@ class Player:
 			if self.snake.has_hit(barrier):
 				self.reset_snake()
 	def draw(self):
-		self.snake.draw()
+		if self.transistor != 0:
+			self.snake.draw()
 
 		score_str = self.get_score_str()
 		if self.query == True:
@@ -65,6 +66,11 @@ class Player:
 			score_str = " Left Player = %i " % (self.score)
 		if self.query == False:
 			score_str = " Right Player = %i " % (self.score)
+		if self.transistor == 0:
+			blank_str = ""
+			for x in range(len(score_str)):
+				blank_str += " "
+			score_str = blank_str
 		return score_str
 
 	def player_functions(self):
@@ -76,7 +82,7 @@ class Player:
 		if self.transistor != 2:
 			self.counter = self.counter + 1
 			if self.transistor == 0:
-				
+				self.draw()
 				self.trigger = 0
 				self.transistor = 1
 			if self.trigger == 1:
