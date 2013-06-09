@@ -53,30 +53,34 @@ class Player:
 				self.reset_snake()
 	def draw(self):
 		self.snake.draw()
-		
+
+		score_str = self.get_score_str()
 		if self.query == True:
-			score_str = " Left Player = %i " % (self.score)
 			self.draw_area.draw_str(1, self.draw_area.height -1, score_str)
 		if self.query == False:
-			score_str = " Right Player = %i " % (self.score)
 			self.draw_area.draw_str(self.draw_area.width -len(score_str) -1, self.draw_area.height -1, score_str)
 
+	def get_score_str(self):	
+		if self.query == True:
+			score_str = " Left Player = %i " % (self.score)
+		if self.query == False:
+			score_str = " Right Player = %i " % (self.score)
+		return score_str
 
 	def player_functions(self):
 		self.trigger = 1
 		if self.transistor == 2:
 			self.snake.move()
 			self.collision_detection()
-			self.snake.draw()
 			self.draw()
 		if self.transistor != 2:
 			self.counter = self.counter + 1
 			if self.transistor == 0:
+				
 				self.trigger = 0
 				self.transistor = 1
 			if self.trigger == 1:
 				if self.transistor == 1:
-					self.snake.draw()
 					self.draw()
 					self.transistor = 0
 			if self.counter == 10:
