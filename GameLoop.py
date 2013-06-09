@@ -35,7 +35,7 @@ class GameLoop:
 		self.egg = Egg(self.draw_area, 9, 9)
 		self.player0.add_to_food(self.egg)
 		self.player1.add_to_food(self.egg)
-
+		self.exit_key = ord('q')
 	#Get list of keys since last gameloop
 	def key_list(self):
 		key_list = []
@@ -49,13 +49,16 @@ class GameLoop:
 		return key_list
 
 	def run(self):
-
+		running = True
 		# Make getch() Non-Blocking
 		self.screen.nodelay(1)
-		while True:
+		while running:
 
 			# Check for user input
 			keys = self.key_list()
+			for key in keys:
+				if key == self.exit_key:
+					running = False
 			dir = self.player0.key_decode(keys)
 			self.player0.snake.change_direction(dir)
 			dir = self.player1.key_decode(keys)
