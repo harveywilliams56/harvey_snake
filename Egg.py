@@ -22,6 +22,13 @@ class Egg:
 				return True
 			else:
 				return False		
+	def position_x(self):
+		point = self.position[0]
+		return point
+
+	def position_y(self):
+		point = self.position[1]
+		return point
 	def hide(self):
 		self.visible = False
 

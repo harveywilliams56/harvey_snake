@@ -4,6 +4,7 @@ from DrawArea import *
 from Snake import *
 from GameLoop import *
 from random import randrange
+from Egg import *
 class Player: 
 	def __init__(self ,x,y,d,l,map,draw_area,query):
 		self.draw_area = draw_area
@@ -28,7 +29,6 @@ class Player:
 			if key in self.map:
 				return self.map[key]
 		return ""
-	
 	def add_to_food(self,munchies):
 		self.food_list.append(munchies)
 	def add_to_obstacles(self,obst):

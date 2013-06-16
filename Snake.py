@@ -2,13 +2,16 @@ import curses.wrapper
 from DrawArea import DrawArea
 
 class Snake:
-	def __init__(self, draw_area, x = 0, y = 0, d = 1, l = 2):
+	def __init__(self, draw_area, x = 0, y = 0, d = 1, l = 2,):
 		self.draw_area = draw_area
 
 		self.reset(x, y, d, l)
-
+		self.point_x = x
+		self.point_y = y
 	def reset(self, x, y, d, l):
 
+		self.point_x = x
+		self.point_y = y
 		if d not in [3, 1, 4, 2]:
 			raise Exception("Invalid direction: %s" % (new_dir))
 
@@ -54,6 +57,12 @@ class Snake:
 				r = True
 				
 		return r
+	def position_x(self):
+		pointx = self.points[-1]
+		return pointx[0]
+	def position_y(self):
+		pointy = self.points[-1]
+		return pointy[1]
 
 	def change_direction(self, new_dir):
 		if new_dir in [3, 1, 4, 2]:
@@ -80,6 +89,8 @@ class Snake:
 		else:
 			return
 		self.checker = new_dir
+	def direction(self):
+		return self.checker
 
 	def move(self):
 		n = len(self.points)

@@ -35,7 +35,9 @@ class GameLoop:
 		self.player0.add_to_food(self.egg)
 		self.player1.add_to_food(self.egg)
 		self.exit_key = ord('q')
-
+		self.controls = "comp."
+		self.running = True
+		self.turn = 0
 	#Get list of keys since last gameloop
 	def key_list(self):
 		key_list = []
@@ -48,18 +50,34 @@ class GameLoop:
 				key_list += [key]
 		return key_list
 
+	def AI(self):
+		direction = self.player0.snake.direction()
+		egg_point_x = self.egg.position_x()
+		snake_point_x = self.player0.snake.position_x()
+		egg_point_y = self.egg.position_y()
+		snake_point_y = self.player0.snake.position_y()
+		if snake_point_x < egg_point_x:
+			return 2
+		if snake_point_x > egg_point_x:
+			return 4
+		if snake_point_y < egg_point_y:
+			return 3
+		if snake_point_y > egg_point_y:
+			return 1
 	def run(self):
-		running = True
 		# Make getch() Non-Blocking
 		self.screen.nodelay(1)
-		while running:
+		while self.running:
 
 			# Check for user input
 			keys = self.key_list()
 			for key in keys:
 				if key == self.exit_key:
-					running = False
-			dir = self.player0.key_decode(keys)
+					self.running = False
+			if self.controls == "human":
+				dir = self.player0.key_decode(keys)
+			else:
+				dir = self.AI()
 			self.player0.snake.change_direction(dir)
 			dir = self.player1.key_decode(keys)
 			self.player1.snake.change_direction(dir)
