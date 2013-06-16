@@ -56,6 +56,11 @@ class GameLoop:
 		snake_point_x = self.player0.snake.position_x()
 		egg_point_y = self.egg.position_y()
 		snake_point_y = self.player0.snake.position_y()
+		screen_width = self.draw_area.width
+		wall_right = screen_width - snake_point_x + egg_point_x
+		plain_left = snake_point_x - egg_point_x
+		wall_left = snake_point_x + screen_width - egg_point_x
+		plain_right = egg_point_x - snake_point_x
 		if snake_point_x < egg_point_x:
 			return 2
 		if snake_point_x > egg_point_x:
