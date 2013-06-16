@@ -66,14 +66,29 @@ class GameLoop:
 		plain_down = snake_point_y - egg_point_y
 		wall_down = snake_point_y + screen_height - egg_point_y
 		plain_up = egg_point_y - snake_point_y
-		if snake_point_x < egg_point_x:
-			return 2
-		if snake_point_x > egg_point_x:
-			return 4
-		if snake_point_y < egg_point_y:
-			return 3
-		if snake_point_y > egg_point_y:
-			return 1
+		if direction == 1 or 3:
+			if snake_point_x < egg_point_x:
+				if plain_right < wall_left:
+					return 2
+				else:
+					return 4
+			if snake_point_x > egg_point_x:
+				if plain_left < wall_right:
+					return 4
+				else:
+					return 2
+		if direction == 2 or 4:
+			if snake_point_y < egg_point_y:
+				if plain_up < wall_down:
+					return 3
+				else:
+					return 1
+			if snake_point_y > egg_point_y:
+				if plain_down < wall_up:
+					return 1
+				else:
+					return 3
+		return direction
 	def run(self):
 		# Make getch() Non-Blocking
 		self.screen.nodelay(1)
