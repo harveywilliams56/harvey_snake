@@ -74,6 +74,12 @@ class GameLoop:
 			for key in keys:
 				if key == self.exit_key:
 					self.running = False
+				if self.controls == "human":
+					if key == ord("p"):
+						self.controls = "comp."
+				if self.controls == "comp.":
+					if key in self.map0:
+						self.controls = "human"
 			if self.controls == "human":
 				dir = self.player0.key_decode(keys)
 			else:
