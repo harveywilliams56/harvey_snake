@@ -2,7 +2,6 @@
 import curses.wrapper
 from DrawArea import *
 from Snake import *
-from GameLoop import *
 from random import randrange
 from Egg import *
 class Player: 
