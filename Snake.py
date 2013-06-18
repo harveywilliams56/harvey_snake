@@ -90,7 +90,7 @@ class Snake:
 			return
 		self.checker = new_dir
 	def direction(self):
-		return self.checker
+		return self.current_direction
 
 	def move(self):
 		n = len(self.points)
