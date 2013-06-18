@@ -7,7 +7,7 @@ import sys
 from Egg import *
 from Player import *
 
-class GameLoop:
+class GamingPage:
 	def __init__(self, screen):
 		self.screen = screen
 		self.draw_area = DrawArea(screen)
@@ -89,7 +89,7 @@ class GameLoop:
 				else:
 					return 3
 		return direction
-	def run(self):
+	def draw_loop(self):
 		# Make getch() Non-Blocking
 		self.screen.nodelay(1)
 		while self.running:
@@ -127,9 +127,9 @@ class GameLoop:
 
 def test_main(screen):
 	
-	gameloop = GameLoop(screen)
+	gameloop = GamingPage(screen)
 
-	gameloop.run()
+	gameloop.draw_loop()
 
 if __name__ == "__main__":
 	curses.wrapper(test_main)
