@@ -124,12 +124,5 @@ class GamingPage:
 			
 			# wait
 			time.sleep(0.125)
+		return GamingPage(self.screen)
 
-def test_main(screen):
-	
-	gameloop = GamingPage(screen)
-
-	gameloop.draw_loop()
-
-if __name__ == "__main__":
-	curses.wrapper(test_main)
