@@ -12,7 +12,7 @@ class GameSelectionPage:
 		self.menu_items = 3
 		self.menu_ys = [40, 37, 34]
 		self.menu_texts = ["1 Player", "2 Player", "Networked"]
-
+		self.game_type = [1, 2, "N"]
 		self.current_item = 1
 		screen.nodelay(1)
 
@@ -35,8 +35,8 @@ class GameSelectionPage:
 				if key == curses.KEY_DOWN:
 					self.move_pointer_down()
 				if key in [ord("\n"), ord(" ")]:
-					snake_sleep = self.menu_sleeps[self.current_item]
-					return GamingPage(self.screen, snake_sleep, self)
+					game_type = self.game_type[self.current_item]
+					return SpeedMenuPage(self.screen, self, game_type)
 				if key == ord("q"):
 					return None
 

@@ -4,7 +4,7 @@ from DrawArea import *
 from GamingPage import *
 
 class SpeedMenuPage:
-   def __init__(self, screen):
+   def __init__(self, screen, quit_page, game_type):
       self.screen = screen
       self.draw_area = DrawArea(screen)
 
@@ -12,7 +12,8 @@ class SpeedMenuPage:
       self.menu_ys = [40, 37, 34]
       self.menu_texts = ["Slow", "Medium", "Fast"]
       self.menu_sleeps = [0.200, 0.125, 0.080]
-
+      self.game_type = game_type
+      self.quit_page = quit_page
       self.current_item = 1
 
    def draw_loop(self):
@@ -26,9 +27,9 @@ class SpeedMenuPage:
                self.move_pointer_down()
             if key in [ord("\n"), ord(" ")]:
                snake_sleep = self.menu_sleeps[self.current_item]
-               return GamingPage(self.screen, snake_sleep, self)
+               return GamingPage(self.screen, snake_sleep, self, self.game_type)
             if key == ord("q"):
-               return None
+               return self.quit_page
 
          # redraw the screen
          self.draw_area.clear()
