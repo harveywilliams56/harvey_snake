@@ -8,7 +8,7 @@ from Egg import *
 from Player import *
 
 class GamingPage:
-   def __init__(self, screen, snake_sleep, quit_page):
+   def __init__(self, screen, snake_sleep, quit_page, game_type):
       self.screen = screen
       self.snake_sleep = snake_sleep
       self.quit_page = quit_page
