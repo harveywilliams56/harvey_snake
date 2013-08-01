@@ -34,9 +34,9 @@ class DrawArea:
          self.grid += [temp[:]]
 
    def draw_str(self, x, y, s):
-      f = open("debug", "a")
-      f.truncate()
-      f.close()
+      #f = open("debug", "a")
+      #f.truncate()
+      #f.close()
       flipped_y = self.height - y - 1
       for c in s:
          self.grid[x][flipped_y] = c
