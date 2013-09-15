@@ -2,7 +2,6 @@ import time
 import curses
 from DrawArea import *
 from GamingPage import *
-from Opponent import *
 
 class SpeedMenuPage:
    def __init__(self, screen, quit_page, game_type):
@@ -18,7 +17,7 @@ class SpeedMenuPage:
       self.current_item = 1
 
    def draw_loop(self):
-	while self.game_type != 2:
+	while True:
 	
 		keys = self.key_list()
 		for key in keys:
@@ -41,7 +40,6 @@ class SpeedMenuPage:
 		self.draw_area.paint_to_screen()
 
 		time.sleep(0.001)
-	return Opponent(self.screen, self.quit_page)
 	
    def move_pointer_down(self): 
       if self.current_item < self.menu_items - 1:

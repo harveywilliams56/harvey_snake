@@ -5,10 +5,11 @@ from GamingPage import *
 from SpeedMenuPage import *
 import curses.wrapper
 class Opponent:
-	def __init__(self, screen, quit_page):
+	def __init__(self, screen, quit_page, nmbr_players):
 		self.screen = screen
 		self.draw_area = DrawArea(screen)
 		self.quit_page = quit_page
+		self.nmbr_players = nmbr_players
 
 		self.menu_items = 2
 		self.menu_ys = [38,36]
@@ -27,7 +28,7 @@ class Opponent:
 		 	self.draw_area.draw_str(text_x,self.menu_ys[i], self.menu_texts[i])
 
 	def draw_loop(self):
-		while True:
+		while self.nmbr_players == 2:
 
 			keys = self.key_list()
 			for key in keys:
@@ -37,7 +38,7 @@ class Opponent:
 					self.move_pointer_down()
 				if key in [ord("\n"), ord(" ")]:
 					game_type = self.game_type[self.current_item]
-					#return SpeedMenuPage(self.screen, self, game_type)
+					return SpeedMenuPage(self.screen, self, game_type)
 				if key == ord("q"):
 					return self.quit_page
 
@@ -49,7 +50,7 @@ class Opponent:
 			self.draw_area.paint_to_screen()
 
 			time.sleep(0.001)
-
+		return SpeedMenuPage(self.screen, self.quit_page, self.nmbr_players)
 	def move_pointer_down(self): 
 		if self.current_item < self.menu_items - 1:
 		 	self.current_item += 1

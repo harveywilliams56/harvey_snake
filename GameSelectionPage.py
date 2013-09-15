@@ -3,6 +3,7 @@ import time
 import curses
 from GamingPage import *
 from SpeedMenuPage import *
+from Opponent import *
 import curses.wrapper
 class GameSelectionPage:
 	def __init__(self, screen):
@@ -36,7 +37,7 @@ class GameSelectionPage:
 					self.move_pointer_down()
 				if key in [ord("\n"), ord(" ")]:
 					game_type = self.game_type[self.current_item]
-					return SpeedMenuPage(self.screen, self, game_type)
+					return Opponent(self.screen, self, game_type)
 				if key == ord("q"):
 					return None
 
