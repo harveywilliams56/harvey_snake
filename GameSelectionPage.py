@@ -2,7 +2,6 @@
 import time
 import curses
 from GamingPage import *
-from SpeedMenuPage import *
 from Opponent import *
 import curses.wrapper
 class GameSelectionPage:
@@ -12,7 +11,7 @@ class GameSelectionPage:
 
 		self.menu_items = 3
 		self.menu_ys = [40, 37, 34]
-		self.menu_texts = ["1 Player", "2 Player", "Networked"]
+		self.menu_texts = ["1 Snake", "2 Snakes", "Networked"]
 		self.game_type = [1, 2, "N"]
 		self.current_item = 1
 		screen.nodelay(1)

@@ -13,10 +13,6 @@ class GamingPage:
       self.snake_sleep = snake_sleep
       self.quit_page = quit_page
       self.draw_area = DrawArea(screen)
-      self.x = self.draw_area.width / 4
-      self.y = self.draw_area.height / 2
-      self.d = 3
-      self.l = 5
       self.players = []
       self.map0 = {  ord('w') : 3,
             ord('a') : 4,
@@ -26,9 +22,8 @@ class GamingPage:
             curses.KEY_LEFT : 4,
             curses.KEY_DOWN : 1,
             curses.KEY_RIGHT : 2}
-      self.player0 = Player(self.x,self.y,self.d, self.l, self.map0,self.draw_area,True)
+      self.player0 = Player(self.draw_area.width / 4,self.draw_area.height / 2, 3, 5, self.map0,self.draw_area,True)
       self.player1 = Player(9, 9, 1, 5, self.map1, self.draw_area,False)
-      self.pause = 1000
       self.player0.add_to_obstacles(self.player0.snake)
       self.player0.add_to_obstacles(self.player1.snake)
       self.player1.add_to_obstacles(self.player0.snake)
@@ -36,10 +31,7 @@ class GamingPage:
       self.egg = Egg(self.draw_area, 9, 9)
       self.player0.add_to_food(self.egg)
       self.player1.add_to_food(self.egg)
-      self.exit_key = ord('q')
-      self.controls = "comp."
-      self.running = True
-      self.turn = 0
+      self.game_type = game_type
    #Get list of keys since last gameloop
    def key_list(self):
       key_list = []
@@ -93,20 +85,14 @@ class GamingPage:
       return direction
    def draw_loop(self):
 
-      while self.running:
+      while True:
 
          # Check for user input
          keys = self.key_list()
          for key in keys:
-            if key == self.exit_key:
-               self.running = False
-            if self.controls == "human":
-               if key == ord("p"):
-                  self.controls = "comp."
-            if self.controls == "comp.":
-               if key in self.map0:
-                  self.controls = "human"
-         if self.controls == "human":
+            if key == ord("q"):
+               return self.quit_page
+         if self.game_type == "Hum":
             dir = self.player0.key_decode(keys)
          else:
             dir = self.AI()
@@ -125,5 +111,4 @@ class GamingPage:
          
          # wait
          time.sleep(self.snake_sleep)
-      return self.quit_page
 
