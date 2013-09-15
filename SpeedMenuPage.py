@@ -2,6 +2,7 @@ import time
 import curses
 from DrawArea import *
 from GamingPage import *
+from Opponent import *
 
 class SpeedMenuPage:
    def __init__(self, screen, quit_page, game_type):
@@ -17,30 +18,31 @@ class SpeedMenuPage:
       self.current_item = 1
 
    def draw_loop(self):
-      while True:
+	while self.game_type != 2:
+	
+		keys = self.key_list()
+		for key in keys:
+			if key == curses.KEY_UP:
+				self.move_pointer_up()
+			if key == curses.KEY_DOWN:
+				self.move_pointer_down()
+			if key in [ord("\n"), ord(" ")]:
+				snake_sleep = self.menu_sleeps[self.current_item]
+				return GamingPage(self.screen, snake_sleep, self, self.game_type)
+			if key == ord("q"):
+				return self.quit_page
 
-         keys = self.key_list()
-         for key in keys:
-            if key == curses.KEY_UP:
-               self.move_pointer_up()
-            if key == curses.KEY_DOWN:
-               self.move_pointer_down()
-            if key in [ord("\n"), ord(" ")]:
-               snake_sleep = self.menu_sleeps[self.current_item]
-               return GamingPage(self.screen, snake_sleep, self, self.game_type)
-            if key == ord("q"):
-               return self.quit_page
+		# redraw the screen
+		self.draw_area.clear()
 
-         # redraw the screen
-         self.draw_area.clear()
+		self.draw_menu_text()
+		self.draw_menu_pointer()
 
-         self.draw_menu_text()
-         self.draw_menu_pointer()
+		self.draw_area.paint_to_screen()
 
-         self.draw_area.paint_to_screen()
-
-         time.sleep(0.001)
-
+		time.sleep(0.001)
+	return Opponent(self.screen, self.quit_page)
+	
    def move_pointer_down(self): 
       if self.current_item < self.menu_items - 1:
          self.current_item += 1
