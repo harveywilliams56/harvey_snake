@@ -1,4 +1,4 @@
-
+from Old_snake import *
 import curses.wrapper
 import time
 from DrawArea import *
@@ -89,6 +89,8 @@ class GamingPage:
 
          # Check for user input
          keys = self.key_list()
+	 if self.game_type == 1:
+		return Old_snake(self.screen, self.snake_sleep, self.quit_page)
          for key in keys:
             if key == ord("r"):
                return self.quit_page
