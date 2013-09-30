@@ -39,7 +39,7 @@ class Opponent:
 				if key in [ord("\n"), ord(" ")]:
 					game_type = self.game_type[self.current_item]
 					return SpeedMenuPage(self.screen, self, game_type)
-				if key == ord("q"):
+				if key == ord("r"):
 					return self.quit_page
 
 			self.draw_area.clear()

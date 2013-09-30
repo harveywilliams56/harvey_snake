@@ -28,7 +28,7 @@ class SpeedMenuPage:
 			if key in [ord("\n"), ord(" ")]:
 				snake_sleep = self.menu_sleeps[self.current_item]
 				return GamingPage(self.screen, snake_sleep, self, self.game_type)
-			if key == ord("q"):
+			if key == ord("r"):
 				return self.quit_page
 
 		# redraw the screen

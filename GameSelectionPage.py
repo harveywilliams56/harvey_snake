@@ -37,7 +37,7 @@ class GameSelectionPage:
 				if key in [ord("\n"), ord(" ")]:
 					game_type = self.game_type[self.current_item]
 					return Opponent(self.screen, self, game_type)
-				if key == ord("q"):
+				if key == ord("r"):
 					return None
 
 			self.draw_area.clear()

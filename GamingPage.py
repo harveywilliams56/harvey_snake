@@ -90,7 +90,7 @@ class GamingPage:
          # Check for user input
          keys = self.key_list()
          for key in keys:
-            if key == ord("q"):
+            if key == ord("r"):
                return self.quit_page
          if self.game_type == "Hum":
             dir = self.player0.key_decode(keys)
