@@ -7,17 +7,18 @@ import struct
 
 class DrawArea:
    def __init__(self, full_screen):
-      screen_width, screen_height = self.get_terminal_size()
-      self.blank_char = '\0'
+   
 
+      self.blank_char = '\0'
       self.width = 70
       self.height = 25
 
+      self.check_terminal_size()
+      screen_width, screen_height = self.get_terminal_size()
       extra_width = int((screen_width - self.width) * 0.5)
       extra_height = int((screen_height - self.height) * 0.5)
 
-      self.screen = curses.newwin(self.height, self.width,
-         extra_height, extra_width)
+      self.screen = curses.newwin(self.height, self.width, extra_height, extra_width)
 
       curses.curs_set(0)
       self.clear()
@@ -27,7 +28,6 @@ class DrawArea:
       flipped_y = self.height - y - 1
 
       self.grid[x][flipped_y] = c
-
    def clear(self):
       temp = [self.blank_char] * self.height
       self.grid = []
@@ -73,6 +73,20 @@ class DrawArea:
       screensize = int(cr[1]), int(cr[0])
       return screensize
 
+   def check_terminal_size(self):
+      width, height = self.get_terminal_size()
+      loop = False 
+      if width >= self.width and height >= self.height:
+         pass
+      else:
+         print "Please use a bigger window"
+         loop = True
+      while loop:
+         width, height = self.get_terminal_size()
+         if width >= self.width and height >= self.height:
+            loop = False
+         else:
+            pass
 
 def test_main(stdscreen):
    
