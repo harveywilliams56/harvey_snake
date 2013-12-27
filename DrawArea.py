@@ -12,8 +12,11 @@ class DrawArea:
       self.blank_char = '\0'
       self.width = 70
       self.height = 25
-
-      self.check_terminal_size()
+      
+      if self.check_terminal_size() == True:
+         print "Please use a bigger window to continue"
+      while self.check_terminal_size():
+         pass
       screen_width, screen_height = self.get_terminal_size()
       extra_width = int((screen_width - self.width) * 0.5)
       extra_height = int((screen_height - self.height) * 0.5)
@@ -75,18 +78,10 @@ class DrawArea:
 
    def check_terminal_size(self):
       width, height = self.get_terminal_size()
-      loop = False 
       if width >= self.width and height >= self.height:
-         pass
+         return False
       else:
-         print "Please use a bigger window"
-         loop = True
-      while loop:
-         width, height = self.get_terminal_size()
-         if width >= self.width and height >= self.height:
-            loop = False
-         else:
-            pass
+         return True
 
 def test_main(stdscreen):
    
