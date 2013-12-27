@@ -3,10 +3,11 @@
 
 import curses
 import curses.wrapper
+import struct
 
 class DrawArea:
    def __init__(self, full_screen):
-      screen_height, screen_width = full_screen.getmaxyx()
+      screen_width, screen_height = self.get_terminal_size()
       self.blank_char = '\0'
 
       self.width = 70
@@ -60,6 +61,17 @@ class DrawArea:
 
       #self.screen.move(self.height - 1, self.width - 1)
       self.screen.refresh()
+
+   def get_terminal_size(self):
+      tuple_xy = None
+      def ioctl_GWINSZ(fd):
+         import fcntl
+         import termios
+         cr = struct.unpack('hh', fcntl.ioctl(fd, termios.TIOCGWINSZ, '1234'))
+         return cr
+      cr = ioctl_GWINSZ(0)
+      screensize = int(cr[1]), int(cr[0])
+      return screensize
 
 
 def test_main(stdscreen):
